@@ -1,0 +1,12 @@
+{
+  "name": "com.je-n.universal-plus.upscaler",
+  "version": "0.1.0",
+  "displayName": "Universal Upscaler",
+  "unity": "6000.7",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "17.7.0"
+  },
+  "author": {
+    "name": "je-n"
+  }
+}
