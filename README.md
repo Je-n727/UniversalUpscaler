@@ -39,7 +39,7 @@ Settings are stored for each Scene View window.
 
 ### Notes
 
-- **Temporal anti-aliasing** in the Scene View requires **Always Refresh** to be enabled in the Scene View's effects menu. The package drives the TAA jitter from the motion vector frame index, so the jitter keeps advancing on editor-only repaints.
+- **Temporal anti-aliasing** works in the Scene View without **Always Refresh**. The package drives the TAA jitter and history from the motion vector frame index, which advances on every Scene View repaint, including editor-only repaints. Because TAA only accumulates when the Scene View repaints, enable **Always Refresh** in the Scene View's effects menu if you want the image to keep converging while the view is still.
 - **Temporal upscalers** (upscalers that report `isTemporal`) only run when the camera is upscaling. When one is active:
   - Render Scale is clamped to a maximum of 1. Supersampling (above 1) is ignored.
   - Temporal anti-aliasing is forced on, as it is for game cameras.

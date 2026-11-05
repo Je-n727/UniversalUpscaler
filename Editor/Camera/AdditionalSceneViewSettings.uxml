@@ -4,7 +4,7 @@
     <ui:Label text="Rendering (Universal Plus)" class="header"/>
     <ui:Slider name="RenderScale" label="Render Scale" tooltip="Scales the camera render target allowing the game to render at a resolution different than native resolution. UI is always rendered at native resolution." low-value="0.1" high-value="3" value="1" show-input-field="true"/>
     <ui:EnumField name="AntiAliasing" label="Anti-aliasing" tooltip="The anti-aliasing mode used by the Scene View camera." type="UnityEngine.Rendering.Universal.AntialiasingMode, Unity.RenderPipelines.Universal.Runtime" />
-    <ui:HelpBox name="TAAWarning" text="Temporal anti-aliasing in the Scene View is only supported when Always Refresh is enabled." message-type="Info"/>
+    <ui:HelpBox name="TAAWarning" text="Temporal anti-aliasing in the Scene View only accumulates when the Scene View repaints. Enable Always Refresh to keep it converging while the view is still." message-type="Info"/>
     <ui:Toggle name="StopNaNs" label="Stop NaNs" tooltip="When enabled, any NaNs in the Scene View camera’s color buffer are suppressed."/>
     <ui:Toggle name="Dithering" label="Dithering" tooltip="Applies 8-bit dithering to the final render to reduce color banding."/>
 </ui:UXML>
