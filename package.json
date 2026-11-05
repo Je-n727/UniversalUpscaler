@@ -1,6 +1,6 @@
 {
   "name": "com.je-n.universal-plus.upscaler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Universal Upscaler",
   "unity": "6000.7",
   "dependencies": {
