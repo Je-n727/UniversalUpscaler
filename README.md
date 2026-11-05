@@ -26,6 +26,8 @@ No setup is required. You don't need to add a renderer feature or modify URP. Th
 
 Open the **Scene View camera settings** (the camera icon in the Scene View toolbar). The **Rendering (Universal Plus)** section has these options:
 
+![Scene View camera settings with the Rendering (Universal Plus) section](Documentation~/images/scene-view-settings.png)
+
 | Option | Description |
 |---|---|
 | **Render Scale** | Scales the Scene View camera's render target, so the Scene View can render at a resolution other than native. Independent of the Render Scale in the URP asset. |
