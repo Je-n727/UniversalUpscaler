@@ -148,7 +148,7 @@ namespace UnityEngine.Rendering.Universal
                 cameraData.imageScalingMode = ImageScalingMode.Upscaling;
 
                 // We force temporal anti-aliasing on when it's a prerequisite.
-                if (upscalerSupportsTemporalAntiAliasing && supportedRenderingFeatures.antiAliasing)
+                if (upscalerSupportsTemporalAntiAliasing)
                 {
                     cameraData.antialiasing = AntialiasingMode.TemporalAntiAliasing;
                 }
@@ -196,9 +196,9 @@ namespace UnityEngine.Rendering.Universal
 
             Matrix4x4 jitterMat = Matrix4x4.identity;
             // Depends on the cameraTargetDesc, size and MSAA also XR modifications of those.
-#if ENABLE_UPSCALER_FRAMEWORK
             IUpscaler activeUpscaler = UniversalRenderPipeline.upscaling?.activeUpscaler;
-            if (activeUpscaler != null)
+            // Only a temporal upscaler drives the jitter sequence.
+            if (cameraData.IsTemporalAAEnabled() && activeUpscaler != null && activeUpscaler.isTemporal)
             {
                 // Upscalers compute jitter with resolution-dependent parameters.
                 int taaFrameIndex = TemporalAA.CalculateTaaFrameIndex(ref cameraData.taaSettings);
@@ -216,9 +216,7 @@ namespace UnityEngine.Rendering.Universal
 
                 jitterMat = TemporalAA.CalculateJitterMatrix(cameraData, subpixelJitter);
             }
-            else
-#endif
-            if (cameraData.IsSTPEnabled())
+            else if (cameraData.IsSTPEnabled())
             {
                 jitterMat = TemporalAA.CalculateJitterMatrix(cameraData, StpUtils.s_JitterFunc);
             }
@@ -238,12 +236,8 @@ namespace UnityEngine.Rendering.Universal
             }
 
             bool needsAlphaUpscaleHistory = cameraData.isAlphaOutputEnabled;
-#if ENABLE_UPSCALER_FRAMEWORK
             IUpscaler activeUpscaler = UniversalRenderPipeline.upscaling?.activeUpscaler;
             needsAlphaUpscaleHistory &= activeUpscaler != null && activeUpscaler.isTemporal && !activeUpscaler.supportsAlphaUpscaling;
-#else
-            needsAlphaUpscaleHistory &= cameraData.IsSTPEnabled();
-#endif
             if (needsAlphaUpscaleHistory)
             {
                 additionalCameraData.historyManager.RequestAccess<AlphaUpscaleHistory>();
